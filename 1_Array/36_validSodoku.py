@@ -1,0 +1,36 @@
+class Solution(object):
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        # two-dimensional array
+        # traverse and set 
+        seen = set()
+        for i in range(9):
+            for j in range(9):
+                c = board[i][j]
+                if c == '.':
+                    continue
+                if c + '@row ' + str(i) in seen or \
+                    c + '@col ' + str(j) in seen or \
+                    c + '@box ' + str(i // 3) + str(j // 3) in seen:
+                    return False
+                seen.add(c + '@row ' + str(i))
+                seen.add(c + '@col ' + str(j))
+                seen.add(c + '@box ' + str(i // 3) + str(j // 3))
+
+        return True
+    
+if __name__ == "__main__":
+    board = [["5","3",".",".","7",".",".",".","."]
+            ,["6",".",".","1","9","5",".",".","."]
+            ,[".","9","8",".",".",".",".","6","."]
+            ,["8",".",".",".","6",".",".",".","3"]
+            ,["4",".",".","8",".","3",".",".","1"]
+            ,["7",".",".",".","2",".",".",".","6"]
+            ,[".","6",".",".",".",".","2","8","."]
+            ,[".",".",".","4","1","9",".",".","5"]
+            ,[".",".",".",".","8",".",".","7","9"]]
+    s = Solution()
+    print(s.isValidSudoku(board))
